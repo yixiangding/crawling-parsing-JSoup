@@ -66,7 +66,8 @@ public class Extractor {
             for (Element link : links) {
                 String url = link.attr("href").trim();
                 if (urlFileMap.containsKey(url)) { // Skip outsider links
-                    edges.add(String.format("%s %s", fileName, urlFileMap.get(url)));
+                    String edge = String.format("%s %s", fileName, urlFileMap.get(url));
+                    edges.add(edge);
                 }
             }
 
@@ -77,8 +78,9 @@ public class Extractor {
 
     private void writeEdgeFile(Set<String> edges, String path) throws Exception {
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        System.out.println("Writing edge list file......");
         for (String edge : edges) {
-            writer.write(edge);
+            writer.write(edge + '\n');
         }
         writer.flush();
         writer.close();
